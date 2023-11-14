@@ -12,10 +12,6 @@ module.exports = defineConfig({
     eslint(),
     dts({
       rollupTypes: true,
-      async afterBuild() {
-        const filePath = path.join(__dirname, './lib/index.d.ts');
-        await fs.writeFile(filePath.replace('.d.ts', '.d.mts'), await fs.readFile(filePath, 'utf-8'), 'utf-8');
-      },
     }),
   ],
   resolve: {
@@ -34,10 +30,12 @@ module.exports = defineConfig({
     outDir: 'lib',
 
     lib: {
-      entry: main,
-      name: 'index',
-      fileName: 'index',
-      formats: ['umd', 'es'],
+      entry: [
+        path.resolve(__dirname, 'src/index.ts'),
+        path.resolve(__dirname, 'src/jsx-dev-runtime.ts'),
+        path.resolve(__dirname, 'src/jsx-runtime.ts'),
+      ],
+      formats: ['es'],
     },
   },
   test: {

@@ -13,6 +13,8 @@
     "experimentalDecorators": true,
     "isolatedModules": false,
     "skipLibCheck": true,
+    "jsxImportSource": "@",
+    "jsx": "react-jsx",
     "paths": {
       "@/*": ["../*"],
       "@entrypoint": ["../index.ts"]

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsxImportSource": "@",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["../lib/*"]
+    }
+  },
+  "include": ["./"]
+}
