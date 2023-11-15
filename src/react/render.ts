@@ -15,7 +15,9 @@ function renderNode(node: Node | string, el: Element) {
   if (typeof node.type !== 'function') {
     const newEl = document.createElement(node.type);
     Object.entries(node.props).forEach((entry) => {
-      (newEl as any)[entry[0].toLowerCase()] = entry[1];
+      let attr = entry[0].toLowerCase();
+      if (attr === 'classname') attr = 'class';
+      (newEl as any)[attr] = entry[1];
     });
     node.children?.forEach((child) => renderNode(child, newEl));
     el.appendChild(newEl);
