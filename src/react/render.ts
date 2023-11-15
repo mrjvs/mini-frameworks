@@ -6,7 +6,7 @@ function renderComponent(node: Node) {
   return (node.type as any)({ children: node.children, ...node.props });
 }
 
-export function renderNode(node: Node | string, el: Element) {
+function renderNode(node: Node | string, el: Element) {
   if (typeof node !== 'object') {
     el.append(node.toString());
     return;
@@ -23,5 +23,21 @@ export function renderNode(node: Node | string, el: Element) {
   }
 
   const newDom = renderComponent(node);
+  node.children = [newDom];
   renderNode(newDom, el);
+}
+
+let rootElement: Element | undefined;
+let rootNode: Node | string | undefined;
+
+export function rerender() {
+  if (!rootNode || !rootElement) return;
+  rootElement.replaceChildren();
+  renderNode(rootNode, rootElement);
+}
+
+export function startRender(node: Node | string, el: Element) {
+  rootElement = el;
+  rootNode = node;
+  rerender();
 }

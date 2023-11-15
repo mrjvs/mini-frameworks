@@ -1,4 +1,5 @@
 import { Node } from '@/react/element';
+import { rerender } from '@/react/render';
 
 let hookIndex = 0;
 let vnode: Node | undefined;
@@ -32,4 +33,5 @@ export function initializeHook<T>() {
 
 export function taintNode(node: Node) {
   node.tainted = true;
+  rerender();
 }
