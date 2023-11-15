@@ -1,17 +1,22 @@
-import { Children, render } from "@/index"
+import { render, useState } from "@/index"
 
-function Button() {
-  return <div>BTN: <p>Hello world</p></div>
+function Button(props: { onClick: () => void }) {
+  return <button onClick={props.onClick}>click me</button>
 }
 
 function App() {
-  const num = 42;
+  const [num, setNum] = useState(0);
 
   return <div>
-    <p>Hello world!</p>
-    <p>This is the number: {num}!</p>
-    <Button />
+    <p>number: {num}</p>
+    <Button onClick={() => setNum(n => n+1)}/>
   </div>
 }
 
-render(<App />, document.getElementById("app"));
+const dom = <App />;
+render(dom, document.getElementById("app"));
+
+const log = document.getElementById("log");
+setInterval(() => {
+  log.innerText = JSON.stringify(dom, null, 2);
+}, 1);

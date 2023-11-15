@@ -14,6 +14,8 @@ export type Node = {
   props: Record<string, any>;
   children: Array<Node | string>;
   key: string | null;
+  hooks: any[]; // list of hook data
+  tainted: boolean; // if tainted, it has to re-render next cycle
 };
 
 export function createElement<Props extends Record<string, any>>(
@@ -24,6 +26,8 @@ export function createElement<Props extends Record<string, any>>(
   const realChildren = attrs?.children ?? [];
   delete attrs?.children;
   return {
+    tainted: false,
+    hooks: [],
     key: key ?? null,
     type: comp,
     props: attrs ?? {},
